@@ -1,0 +1,10 @@
+parsing ->	separer les differents arguments entres en ligne de commande de ms
+			checker s'il s'agit de caractere special, de single quote,
+			ou de caracteres seuls
+			parser chaque argument en fonction
+			si l'argument est entre double quote, verifier si oui on non
+			il y a des dollars signs
+			garder en memoire la place de chaque argument
+			et de chaque caractere special
+
+< infile "ls -l" ls -l -a caca -e 'ls $USER' > outfile
