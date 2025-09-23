@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 10:37:43 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 16:32:57 by garivoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ volatile sig_atomic_t	g_sigstate = 0;
 
 static int	ms_init(t_ms *ms, char **envp)
 {
-	(void)envp;
 	ft_bzero(ms, sizeof(t_ms));
 	ft_bzero(&ms->cyc, sizeof(t_cycle));
-	// if (ms_env_init(ms, envp) != MS_OK)
-	// 	return (ms_fatal(ms, "env_init"), MS_ERR);
+	if (ft_create_lstenvp(ms, envp) != MS_OK)
+		return (ms_fatal(ms, "env_init"), MS_ERR);
 	return (MS_OK);
 }
 
@@ -34,7 +33,7 @@ static int	ms_iter(t_ms *ms)
 	if (ms_lexer_parser(ms) != MS_OK)
 		return (free(ms->cyc.line), MS_ERR);
 	// expand
-	// exec
+	// ms_process(ms);
 	return (0);
 }
 

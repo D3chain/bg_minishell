@@ -6,15 +6,15 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 10:36:54 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 12:44:06 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 17:27:06 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ast	*ms_parser(t_ms *ms, t_tok *head)
+t_ret	ms_parser(t_ms *ms)
 {
-	t_ast	*ast;
+	
 
 	
 }
