@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 18:48:28 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:57:29 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,25 @@ typedef struct s_argvec
 	int		cap;
 }	t_argvec;
 
+typedef struct s_redirvec
+{
+	t_redir	*data;
+	int		len;
+	int		cap;
+}	t_redirvec;
+
+// argvec
 void	argvec_init(t_argvec *v);
 void	argvec_free(t_argvec *v);
 int		argvec_reserve(t_argvec *v, int need);
 int		argvec_push_arg(t_argvec *v, const char *arg);
+
+// redirvec
+void	redirvec_init(t_redirvec *v);
+void	redirvec_free(t_redirvec *v);
+int		redirvec_reserve(t_redirvec *v, int need);
+int		redirvec_push_redir(t_redirvec *v, const t_redir *t);
+
+int		is_quote_in(char *s);
 
 #endif

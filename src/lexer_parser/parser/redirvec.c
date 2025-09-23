@@ -1,48 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argvec.c                                           :+:      :+:    :+:   */
+/*   redirvec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:27:18 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 20:16:29 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:47:28 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-void	argvec_init(t_argvec *v)
+void	redirvec_init(t_redirvec *v)
 {
 	v->data = NULL;
 	v->len = 0;
 	v->cap = 0;
 }
 
-void	argvec_free(t_argvec *v)
+void	redirvec_free(t_redirvec *v)
 {
 	int	i;
 
 	if (!v || !v->data)
 	{
 		if (v)
-			argvec_init(v);
+			redirvec_init(v);
 		return ;
 	}
 	i = 0;
 	while (i < v->len)
 	{
-		free(v->data[i]);
+		if (v->data[i].word)
+			free(v->data[i].word);
 		i++;
 	}
 	free(v->data);
-	argvec_init(v);
+	redirvec_init(v);
 }
 
-static int	argvec_grow(t_argvec *v, int need)
+static int	redirvec_grow(t_redirvec *v, int need)
 {
 	int		ncap;
-	char	**p;
+	t_redir	*p;
 	
 	if (v->cap == 0)
 		v->cap = 16;
@@ -57,7 +58,7 @@ static int	argvec_grow(t_argvec *v, int need)
 		}
 		ncap *= 2;
 	}
-	p = (char **)ms_realloc_array(v->data,
+	p = (t_redir *)ms_realloc_array(v->data,
 		(size_t)v->cap, (size_t)ncap, sizeof(*p));
 	if (!p)
 		return (0);
@@ -66,29 +67,30 @@ static int	argvec_grow(t_argvec *v, int need)
 	return (1);
 }
 
-int	argvec_reserve(t_argvec *v, int need)
+int	redirvec_reserve(t_redirvec *v, int need)
 {
 	if (need < 0)
 		return (0);
 	if (v->cap >= need)
 		return (1);
-	return (argvec_grow(v, need));
+	return (redirvec_grow(v, need));
 }
 
-int	argvec_push_arg(t_argvec *v, const char *arg)
+int	redirvec_push_redir(t_redirvec *v, const t_redir *t)
 {
-	char	*tmp;
+	t_redir	tmp;
 
-	if (!argvec_reserve(v, v->len + 1))
+	if (!redirvec_reserve(v, v->len + 1))
 		return (MS_ERR);
-	if (arg)
+	tmp = *t;
+	if (t->word)
 	{
-		tmp = ft_strdup(arg);
-		if (!tmp)
+		tmp.word = ft_strdup(t->word);
+		if (!tmp.word)
 			return (MS_ERR);
 	}
 	else
-		tmp = NULL;
+		tmp.word = NULL;
 	v->data[v->len++] = tmp;
 	return (MS_OK);
 }
