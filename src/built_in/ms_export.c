@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:01:44 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 11:47:09 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:15:36 by garivoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	ft_export_bubble_sort(t_env *envp)
 	}
 	while(temp1->prev)
 		temp1 = temp1->prev;
-	ft_export_printf_envp(temp1);
+	ft_export_print_envp(temp1);
 }
 
 /*------------------------------*/
