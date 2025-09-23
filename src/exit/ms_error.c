@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 10:06:37 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 10:48:26 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:07:20 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ms_syntax_err(const char *tok)
 	if (ft_strlen(tok) + 48 > MS_BUF_ERR_SIZE -1)
 		write(2, "miniprout: pipi popo\n", 22);
 	i = 0;
-	i += fill3(err_buf, "minishell: syntax error near unexpected token '", tok, "\n");
+	i += fill3(err_buf, "minishell: syntax error near unexpected token `", tok, "\'\n");
 	write(2, err_buf, i);
 	return (MS_MISUSE);
 }

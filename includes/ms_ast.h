@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 13:13:08 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:48:28 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,17 @@ typedef struct s_ast
 		t_cmd	cmd;
 	}	u_pao;
 }	t_ast;
+
+typedef struct s_argvec
+{
+	char	**data;
+	int		len;
+	int		cap;
+}	t_argvec;
+
+void	argvec_init(t_argvec *v);
+void	argvec_free(t_argvec *v);
+int		argvec_reserve(t_argvec *v, int need);
+int		argvec_push_arg(t_argvec *v, const char *arg);
 
 #endif

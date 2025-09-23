@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 12:12:33 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 18:17:55 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "ms_tok.h"
+# include "ms_ast.h"
 # include "ms_env.h"
 # include "ms_term.h"
 # include "ms_error.h"
