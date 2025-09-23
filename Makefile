@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: echatela <echatela@student.42.fr>          +#+  +:+       +#+         #
+#    By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/05 12:02:13 by echatela          #+#    #+#              #
-#    Updated: 2025/09/23 11:56:20 by echatela         ###   ########.fr        #
+#    Updated: 2025/09/23 12:25:46 by garivoir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS		=	src/main.c \
 				$(EXITDIR)ms_cleanup.c $(EXITDIR)ms_error.c $(EXITDIR)ms_fatal.c $(EXITDIR)fill.c \
 				$(UTILSDIR)join_and_free.c $(UTILSDIR)realloc_array.c \
 				$(ENVPASS)ft_create_envp_list.c $(ENVPASS)ft_new_envp.c \
-				src/built_in/ms_cd.c src/built_in/ms_echo.c src/built_in/ms_env.c src/built_in/ms_exit.c src/built_in/ms_export.c src/built_in/ms_pwd.c src/built_in/ms_unset.c \#
+				src/built_in/ms_cd.c src/built_in/ms_echo.c src/built_in/ms_env.c src/built_in/ms_exit.c src/built_in/ms_export.c src/built_in/ms_pwd.c src/built_in/ms_unset.c
 # 				src/process/ms_process.c 
 
 TERMDIR		=	src/term/
