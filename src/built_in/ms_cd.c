@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:01:38 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 13:03:32 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:29:34 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 /* Finding HOME path			*/
 /* from envp main variable		*/
 /*------------------------------*/
-static char	*ms_cd_home_path(t_envp *envp)
+static char	*ms_cd_home_path(t_env *envp)
 {
 	char	*home;
-	t_envp	*envp_temp;
+	t_env	*envp_temp;
 
 	if (!envp)
 		return (NULL);
@@ -46,7 +46,7 @@ static char	*ms_cd_home_path(t_envp *envp)
 /* minishell cd					*/
 /* built-in main function		*/
 /*------------------------------*/
-int	ms_cd(char **cmd, t_envp *envp)
+int	ms_cd(char **cmd, t_env *envp)
 {
 	int		cd;
 	char	*home;

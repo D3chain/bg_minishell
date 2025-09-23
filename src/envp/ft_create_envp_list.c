@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_envp_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:32:55 by garivoir          #+#    #+#             */
-/*   Updated: 2025/09/19 13:58:29 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:29:56 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 /*------------------------------*/
 /* Free "envp" list				*/
 /*------------------------------*/
-void	ft_clear_lstenvp(t_envp **envp, int status)
+void	ft_clear_lstenvp(t_env **envp, int status)
 {
-	t_envp	*temp;
+	t_env	*temp;
 
 	temp = NULL;
 	if (!envp || !*envp)
@@ -40,12 +40,12 @@ void	ft_clear_lstenvp(t_envp **envp, int status)
 /* Create a new "envp"			*/
 /* variable with a chained list	*/
 /*------------------------------*/
-t_envp	*ft_create_lstenvp(char **old_envp)
+t_env	*ft_create_lstenvp(char **old_envp)
 {
 	int		i;
-	t_envp	*new_envp;
-	t_envp	*new_envp_temp;
-	t_envp	*new_envp_prev_temp;
+	t_env	*new_envp;
+	t_env	*new_envp_temp;
+	t_env	*new_envp_prev_temp;
 
 	if (!old_envp || !old_envp[0])
 		return (NULL);
