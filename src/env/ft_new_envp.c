@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_envp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:41:46 by garivoir          #+#    #+#             */
-/*   Updated: 2025/09/23 15:19:33 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 17:20:38 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_equal_sign(char *var, int equal)
 			i++;
 		if (var[i] == '=')
 			i++;
-		while (var[++i])
+		while (var[i++])
 			size++;
 	}
 	return (size);
