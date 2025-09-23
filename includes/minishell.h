@@ -6,44 +6,52 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 13:38:56 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:06:35 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "ms_types.h"
 # include "ms_lexer_parser.h"
-# include "ms_ast.h"
-# include "ms_tok.h"
-# include "ms_stream.h"
+# include "ms_env.h"
 # include "ms_error.h"
+# include "ms_term.h"
+# include "ms_tok.h"
 
 # include "libft.h"
 
-# include <stdbool.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include <signal.h>
+
+extern volatile sig_atomic_t g_sigstate;
+
+typedef struct s_cycle
+{
+	char	*line;
+
+	t_tok	*vec;
+	int		tlen;
+	int		in_sq;
+	int		in_dq;
+
+	t_ast	*ast;
+}	t_cycle;
 
 typedef struct s_ms
 {
-	char	**envp;
-	char	*line;
-	t_tok	*tok;
-	t_ast	*ast;
-	int		status;
-	int		last_status;
+	int			status;
+	
+	t_env		*env;
+	char		**envp_cache;
+	int			envp_dirty;
+
+	char		**path_dirs;
+	int			path_dirty;
+
+	t_cycle		cyc;
 }	t_ms;
 
-// Core
-char	*ms_term(t_ms *ms, char **envp);
-void	ms_cleanup(t_ms *ms);
-
-
-
-// Utils
-char	*join_and_free(char *dst, char *join, int i);
+void	ms_clear_cycle(t_ms *ms);
+void	ms_cleanup_all(t_ms *ms);
 
 #endif

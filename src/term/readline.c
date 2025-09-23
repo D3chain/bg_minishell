@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_tok.c                                        :+:      :+:    :+:   */
+/*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 15:15:21 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/22 11:32:22 by echatela         ###   ########.fr       */
+/*   Created: 2025/09/22 09:20:33 by echatela          #+#    #+#             */
+/*   Updated: 2025/09/22 12:45:15 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_tok	ms_create_tok(t_tokkind kind, char *s)
+t_ret	ms_readline(t_ms *ms)
 {
-	t_tok	tok;
-
-	ft_bzero(&tok, sizeof(t_tok));
-	if (kind == T_WORD)
-		tok.cat = TKC_WORD;
-	else if (kind >= T_PIPE && kind <= T_RPAR)
-		tok.cat = TKC_STRUCT;
-	else
-		tok.cat = TKC_REDIR; 
-	tok.kind = kind;
-	tok.lex = s;
-	return (tok);
+	// char	*prompt;
+	char	*line;
+	// t_ret	r;
+	
+	// r = ms_prompt_make(&prompt, ms->env);
+	// if (r != MS_OK)
+	// 	return (r);
+	line = readline(NULL);
+	// free(prompt);
+	if (!line)
+		return (MS_EOF);
+	if (*line != '\0')
+		add_history(line);
+	ms->cyc.line = line;
+	return (MS_OK);
 }

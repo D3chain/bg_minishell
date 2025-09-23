@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_tok.c                                        :+:      :+:    :+:   */
+/*   ms_env.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 15:15:21 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/22 11:32:22 by echatela         ###   ########.fr       */
+/*   Created: 2025/09/21 08:38:57 by echatela          #+#    #+#             */
+/*   Updated: 2025/09/22 09:13:02 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MS_ENV_H
+# define MS_ENV_H
 
-t_tok	ms_create_tok(t_tokkind kind, char *s)
+# include "ms_types.h"
+
+typedef struct s_env
 {
-	t_tok	tok;
+	char			*key;
+	char			*val;
+	
+	struct s_env	*next;
+}	t_env;
 
-	ft_bzero(&tok, sizeof(t_tok));
-	if (kind == T_WORD)
-		tok.cat = TKC_WORD;
-	else if (kind >= T_PIPE && kind <= T_RPAR)
-		tok.cat = TKC_STRUCT;
-	else
-		tok.cat = TKC_REDIR; 
-	tok.kind = kind;
-	tok.lex = s;
-	return (tok);
-}
+#endif

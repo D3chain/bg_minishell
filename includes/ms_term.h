@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_tok.c                                        :+:      :+:    :+:   */
+/*   ms_term.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 15:15:21 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/22 11:32:22 by echatela         ###   ########.fr       */
+/*   Created: 2025/09/21 08:38:44 by echatela          #+#    #+#             */
+/*   Updated: 2025/09/21 14:39:16 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef TERM_H
+# define TERM_H
 
-t_tok	ms_create_tok(t_tokkind kind, char *s)
-{
-	t_tok	tok;
+# include "ms_types.h"
 
-	ft_bzero(&tok, sizeof(t_tok));
-	if (kind == T_WORD)
-		tok.cat = TKC_WORD;
-	else if (kind >= T_PIPE && kind <= T_RPAR)
-		tok.cat = TKC_STRUCT;
-	else
-		tok.cat = TKC_REDIR; 
-	tok.kind = kind;
-	tok.lex = s;
-	return (tok);
-}
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+t_ret	ms_prompt_make(char **out_prompt, t_env *env);
+t_ret	ms_readline(t_ms *ms);
+
+#endif

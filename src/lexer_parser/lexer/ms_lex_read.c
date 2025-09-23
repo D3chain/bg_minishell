@@ -6,77 +6,68 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 18:49:42 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 13:40:06 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:53:45 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static size_t	ms_wordlen(t_lex *lex)
+static size_t	ms_wordlen(t_ms *ms, int *i)
 {
 	size_t	len;
 
 	len = 0;
-	while (lex->src[lex->i + len])
+	while (ms->cyc.line[*i + len])
 	{
-		if (!lex->in_sq && !lex->in_dq && (is_blank(lex->src[lex->i + len]) ||
-			is_meta(lex->src[lex->i + len])))
+		if (!ms->cyc.in_sq && !ms->cyc.in_dq && (is_blank(ms->cyc.line[*i + len])
+			|| is_meta(ms->cyc.line[*i + len])))
 			break;
-		else if (!lex->in_dq && lex->src[lex->i + len] == '\'')
-			lex->in_sq = !lex->in_sq;
-		else if (!lex->in_sq && lex->src[lex->i + len] == '\"')
-			lex->in_dq = !lex->in_dq;
+		else if (!ms->cyc.in_dq && ms->cyc.line[*i + len] == '\'')
+			ms->cyc.in_sq = !ms->cyc.in_sq;
+		else if (!ms->cyc.in_sq && ms->cyc.line[*i + len] == '\"')
+			ms->cyc.in_dq = !ms->cyc.in_dq;
 		len++;
 	}
 	return (len);
 }
 
-static t_tok	ms_lex_read_word(t_lex *lex)
+static t_tok	ms_lex_read_word(t_ms *ms, int *i)
 {
 	char	*str;
 	int		wd_len;
 
-	wd_len = ms_wordlen(lex);
-	str = ft_substr(lex->src, lex->i, wd_len);
+	wd_len = ms_wordlen(ms, i);
+	str = ft_substr(ms->cyc.line, *i, wd_len);
 	if (!str)
-		return (NULL);
-	return (lex->i += wd_len, ms_create_tok(T_WORD, str));
+		ms_fatal(ms, "malloc");
+	return (*i += wd_len, ms_create_tok(T_WORD, str));
 }
 
-static t_tok	ms_lex_read_op(t_lex *lex)
+static t_tok	ms_lex_read_op(t_ms *ms, int *i)
 {
 	const char	*op[] = {0, "|", "||", "&&", "(", ")", "<", "<<", ">", ">>"};
 	char		*str;
-	int			i;
+	int			ind;
 
-	i = sizeof(op) / sizeof(*op);
-	while (op[--i])
+	ind = sizeof(op) / sizeof(*op);
+	while (op[--ind])
 	{
-		if (ft_strncmp(&lex->src[lex->i], op[i], ft_strlen(op[i])) == 0)
+		if (ft_strncmp(&ms->cyc.line[*i], op[ind], ft_strlen(op[ind])) == 0)
 		{
-			str = ft_substr(lex->src, lex->i, ft_strlen(op[i]));
+			str = ft_substr(ms->cyc.line, *i, ft_strlen(op[ind]));
 			if (!str)
-				return (NULL);
-			return (lex->i += ft_strlen(op[i]), ms_create_tok(i, str));
+				ms_fatal(ms, "malloc");
+			return (*i += ft_strlen(op[ind]), ms_create_tok(ind, str));
 		}
 	}
-	str = ft_substr(lex->src, lex->i, 1);
-	return (lex->i += 1, ms_create_tok(T_UNSUP, str));
+	str = ft_substr(ms->cyc.line, *i, 1);
+	return (*i += 1, ms_create_tok(T_UNSUP, str));
 }
 
-t_list	*ms_lex_read_get_node(t_ms *ms, t_lex *lex, t_list **lst)
+t_tok	ms_lex_read_get_tok(t_ms *ms, int *i)
 {
-	t_list	*node;
-	t_tok	tok;
-
-	if (is_meta(lex->src[lex->i]))
-		tok = ms_lex_read_op(lex);
+	if (is_meta(ms->cyc.line[*i]))
+		return (ms_lex_read_op(ms, i));
 	else
-		tok = ms_lex_read_word(lex);
-	if (!tok)
-		return (ft_lstclear(lst, ms_tok_del), ms->status = MS_ERR, NULL);
-	node = ft_lstnew(tok);
-	if (!node)
-		return (ms_tok_del(tok), ft_lstclear(lst, ms_tok_del), ms->status = MS_ERR, NULL);
-	return (node);
+		return (ms_lex_read_word(ms, i));
 }

@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 09:55:12 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/18 20:45:02 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/22 09:16:36 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@
 # include <errno.h>
 # include <string.h>
 
-# define MS_OK			0
-# define MS_ERR			1
-# define MS_MISUSE		2
-# define MS_NOTEXEC		126
-# define MS_NOTFOUND	127
-# define MS_SIGINT		130
-# define MA_SIGQUIT		131
-# define MS_EXIT_NAN	255
-
 # define MS_BUF_ERR_SIZE	256
+
+typedef enum	e_ret
+{
+	MS_OK		= 0,
+	MS_ERR		= 1,
+	MS_MISUSE	= 2,
+	MS_EOF		= 2,
+	MS_NOTEXEC	= 126,
+	MS_NOTFOUND	= 127,
+	MS_SIGINT	= 130,
+	MS_SIGQUIT	= 131,
+	MS_EXIT_NAN	= 255
+}	t_ret;
 
 int		fill1(char *buf, const char *a);
 int		fill2(char *buf, const char *a, const char *b);

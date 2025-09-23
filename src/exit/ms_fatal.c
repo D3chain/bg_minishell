@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 10:50:51 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 11:59:58 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/22 13:02:23 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	ms_fatal(t_ms *ms, const char *ctx)
 	i += fill2(err_buf, "minishell: ", ctx);
 	i += fill3(err_buf + i, ": ", strerror(errno), "\n");
 	write(2, err_buf, i);
-	ms_cleanup(ms);
+	ms_cleanup_all(ms);
 	exit(1);
 }

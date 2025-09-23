@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:01 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 13:40:18 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:48:14 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ typedef struct s_pars
 }	t_pars;
 
 // Lexer_Parser
-t_ast	*ms_lexer_parser(t_ms *ms, const char *line);
+t_ret	ms_lexer_parser(t_ms *ms);
 
 	// Lexer
-t_tok	*ms_lexer(t_ms *ms, const char *line);
-t_list	*ms_lex_read_get_node(t_ms *ms, t_lex *lex, t_list **lst);
+t_ret	ms_lexer(t_ms *ms);
+t_tok	ms_lex_read_get_tok(t_ms *ms, int *i);
 
 		// Utils
 int		is_blank(int c);

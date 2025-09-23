@@ -6,7 +6,7 @@
 #    By: echatela <echatela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/05 12:02:13 by echatela          #+#    #+#              #
-#    Updated: 2025/09/19 12:25:31 by echatela         ###   ########.fr        #
+#    Updated: 2025/09/22 13:03:59 by echatela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ CFLAGS		=	-Wall -Wextra -Werror -g3
 RLFLAGS     =	-lreadline -lncurses
 
 SRCS		=	src/main.c \
-				$(TERMDIR)ms_term.c \
+				$(TERMDIR)prompt.c $(TERMDIR)readline.c \
 				$(LEXPARSDIR)ms_lexer_parser.c \
-				$(LEXDIR)ms_lexer.c $(LEXDIR)utils_lexer.c $(LEXDIR)utils_tok.c $(LEXDIR)ms_lex_read.c \
-				$(EXITDIR)ms_cleanup.c $(EXITDIR)ms_error.c $(EXITDIR)ms_fatal.c $(EXITDIR)ms_puts.c \
-				$(UTILSDIR)join_and_free.c
+				$(LEXDIR)ms_lexer.c $(LEXDIR)utils_lexer.c $(LEXDIR)utils_tok.c $(LEXDIR)ms_lex_read.c $(LEXDIR)tokvec.c $(LEXDIR)tokvec_push.c \
+				$(EXITDIR)ms_cleanup.c $(EXITDIR)ms_error.c $(EXITDIR)ms_fatal.c $(EXITDIR)fill.c \
+				$(UTILSDIR)join_and_free.c $(UTILSDIR)realloc_array.c \
 # 				src/process/ms_process.c 
 # 				src/built_in/ms_cd.c src/built_in/ms_echo.c src/built_in/ms_env.c src/built_in/ms_exit.c src/built_in/ms_export.c src/built_in/ms_pwd.c src/built_in/ms_unset.c \#
 

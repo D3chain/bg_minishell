@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 15:43:34 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/18 15:42:40 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:52:26 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ int	is_meta(int c)
 			return (meta[i]);
 		i++;
 	}
-	return (false);
+	return (0);
 }
