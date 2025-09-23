@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:01:44 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 14:34:48 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:47:09 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 /*------------------------------*/
 /* Print "envp" variable		*/
 /*------------------------------*/
-static void	ft_export_print_envp(t_envp *envp)
+static void	ft_export_print_envp(t_env *envp)
 {
 	while (envp->next)
 	{
-		printf("declare -x %s=\"%s\"\n", envp->name, envp->value);
+		printf("declare -x %s=\"%s\"\n", envp->key, envp->val);
 		envp = envp->next;
 	}
 	while (envp->prev)
@@ -35,16 +35,16 @@ static void	ft_export_print_envp(t_envp *envp)
 /* alphabatcical order for		*/
 /* "envp", then print variable	*/
 /*------------------------------*/
-static void	ft_export_bubble_sort(t_envp *envp)
+static void	ft_export_bubble_sort(t_env *envp)
 {
-	t_envp	*temp1;
-	t_envp	*temp2;
-	t_envp	*temp3;
+	t_env	*temp1;
+	t_env	*temp2;
+	t_env	*temp3;
 
 	temp1 = envp;
 	while (temp1 && temp1->next)
 	{
-		if (ft_strcmp(temp1->name, temp1->next->name) > 0)
+		if (ft_strcmp(temp1->key, temp1->next->key) > 0)
 		{
 			temp2 = temp1;
 			temp3 = temp1->next;
@@ -69,7 +69,7 @@ static void	ft_export_bubble_sort(t_envp *envp)
 /* by alphabetical order, and	*/
 /* display variables on screen	*/
 /*------------------------------*/
-static int	ms_export_alphabetical(t_envp *envp)
+static int	ms_export_alphabetical(t_env *envp)
 {
 	if (!envp || !envp->var)
 		return (-1);	//error
@@ -86,7 +86,7 @@ static int	ms_export_alphabetical(t_envp *envp)
 /* minishell export				*/
 /* built-in main function		*/
 /*------------------------------*/
-int	ms_export(char **cmd, t_envp *envp)
+int	ms_export(char **cmd, t_env *envp)
 {
 	int	i;
 	

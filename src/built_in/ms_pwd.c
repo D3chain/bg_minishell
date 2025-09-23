@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:01:47 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 13:13:24 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:47:16 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /* minishell pwd				*/
 /* built-in main function		*/
 /*------------------------------*/
-int	ms_pwd(char **cmd, t_envp *envp)
+int	ms_pwd(char **cmd, t_env *envp)
 {
 	char	*buf;
 
