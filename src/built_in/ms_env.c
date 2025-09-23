@@ -28,15 +28,11 @@ int	ms_env(char **cmd, t_env *envp)
 		return (MS_ERR);	//error
 	if (!envp)
 		return (MS_OK);
-	while (envp && envp->next)
+	while (envp)
 	{
 		if (envp->var)
-			printf("%s", envp->var);
+			printf("%s\n", envp->var);
 		envp = envp->next;
 	}
-	if (envp->var)
-			printf("%s", envp->var);
-	while (envp->prev)
-		envp = envp->prev;
 	return (MS_OK);
 }

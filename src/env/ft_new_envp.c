@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_envp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:41:46 by garivoir          #+#    #+#             */
-/*   Updated: 2025/09/23 12:03:08 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:19:33 by garivoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,16 @@
 /*------------------------------*/
 int	ft_free_envp_struct(t_env **envp, int status)
 {
+	if (!envp || !*envp)
+		return (status);
 	if ((*envp)->var)
 		free((*envp)->var);
 	if ((*envp)->key)
 		free((*envp)->key);
 	if ((*envp)->val)
 		free((*envp)->val);
-	if ((*envp)->prev)
-		(*envp)->prev = NULL;
-	if ((*envp)->next)
-		(*envp)->next = NULL;
-	if (*envp)
-		free(*envp);
+	free(*envp);
+	*envp = NULL;
 	return (status);	//error
 }
 
@@ -82,12 +80,13 @@ int	ft_equal_sign(char *var, int equal)
 	}
 	if (equal == 1)
 	{
-		i = (int)ft_strlen(var);
-		while (i >= 0 && var[i] != '=')
-		{
-			i--;
+		i = 0;
+		while (var[i] && var[i] != '=')
+			i++;
+		if (var[i] == '=')
+			i++;
+		while (var[++i])
 			size++;
-		}
 	}
 	return (size);
 }
@@ -136,17 +135,17 @@ t_env	*ft_new_envp(char *var)
 	envp = malloc(sizeof(t_env));
 	if (!envp)
 		return (NULL);								//error
-	envp->var = malloc(sizeof(ft_strlen(var) + 1));
+	envp->var = malloc(ft_strlen(var) + 1);
 	if (!envp->var)
 		return (ft_free_envp_struct(&envp, -1), NULL);	//error
 	i = -1;
 	while (var[++i])
 		envp->var[i] = var[i];
-	envp->var[++i] = 0;
-	envp->key = malloc(sizeof(ft_equal_sign(var, 0) + 1));
+	envp->var[i] = '\0';
+	envp->key = malloc(ft_equal_sign(var, 0) + 1);
 	if (!envp->key)
 		return (ft_free_envp_struct(&envp, -1), NULL);	//error
-	envp->val = malloc(sizeof(ft_equal_sign(var, 1) + 1));
+	envp->val = malloc(ft_equal_sign(var, 1) + 1);
 	if (!envp->val)
 		return (ft_free_envp_struct(&envp, -1), NULL);	//error
 	ft_envp_var_name_and_value(envp);
