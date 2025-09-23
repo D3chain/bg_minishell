@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
+/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/22 13:06:35 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:12:33 by garivoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "ms_lexer_parser.h"
-# include "ms_env.h"
-# include "ms_error.h"
-# include "ms_term.h"
 # include "ms_tok.h"
+# include "ms_env.h"
+# include "ms_term.h"
+# include "ms_error.h"
+# include "ms_built_in.h"
+# include "ms_lexer_parser.h"
 
 # include "libft.h"
 

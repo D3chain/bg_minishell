@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:01:34 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/19 13:13:06 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:45:55 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	ms_echo_check_opt(char *opt)
 /* minishell echo				*/
 /* built-in main function		*/
 /*------------------------------*/
-int	ms_echo(char **cmd, t_envp *envp)
+int	ms_echo(char **cmd, t_env *envp)
 {
 	int	i;
 	int	opt;

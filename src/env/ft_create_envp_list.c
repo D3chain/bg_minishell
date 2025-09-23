@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_envp_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:32:55 by garivoir          #+#    #+#             */
-/*   Updated: 2025/09/19 13:58:29 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:57:35 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 /*------------------------------*/
 /* Free "envp" list				*/
 /*------------------------------*/
-void	ft_clear_lstenvp(t_envp **envp, int status)
+void	ft_clear_lstenvp(t_env **envp, int status)
 {
-	t_envp	*temp;
+	t_env	*temp;
 
 	temp = NULL;
 	if (!envp || !*envp)
@@ -40,31 +40,31 @@ void	ft_clear_lstenvp(t_envp **envp, int status)
 /* Create a new "envp"			*/
 /* variable with a chained list	*/
 /*------------------------------*/
-t_envp	*ft_create_lstenvp(char **old_envp)
+t_ret	ft_create_lstenvp(t_ms *ms, char **old_envp)
 {
-	int		i;
-	t_envp	*new_envp;
-	t_envp	*new_envp_temp;
-	t_envp	*new_envp_prev_temp;
+	t_env	*new_envp;
+	t_env	*new_envp_temp;
+	t_env	*new_envp_prev_temp;
 
+	int (i) = 0;
 	if (!old_envp || !old_envp[0])
-		return (NULL);
+		return (MS_ERR);
 	new_envp = ft_new_envp(old_envp[0]);
 	if (!new_envp)
-		return (NULL);
-	i = 1;
+		return (ms_fatal(ms, "malloc"), MS_ERR);
 	new_envp_temp = new_envp;
-	while (old_envp[i])
+	while (old_envp[++i])
 	{
 		new_envp_prev_temp = new_envp;
 		new_envp->next = ft_new_envp(old_envp[i]);
 		if (!new_envp->next)
 		{
 			ft_clear_lstenvp(&new_envp_temp, -1);	//error
-			return (NULL);
+			return (ms_fatal(ms, "malloc"), MS_ERR);
 		}
 		new_envp = new_envp->next;
 		new_envp->prev = new_envp_prev_temp;
 	}
-	return (new_envp_temp);
+	ms->env = new_envp_temp;
+	return (MS_OK);
 }

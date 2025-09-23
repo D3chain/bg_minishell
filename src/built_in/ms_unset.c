@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:01:50 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 10:23:38 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:48:34 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 /* Delete variable				*/
 /* named unset's argument		*/
 /*------------------------------*/
-static void	ms_unset_delete_var(t_envp *envp)
+static void	ms_unset_delete_var(t_env *envp)
 {
-	t_envp	*temp1;
-	t_envp	*temp2;
+	t_env	*temp1;
+	t_env	*temp2;
 
 	temp1 = envp->prev;
 	temp2 = envp->next;
@@ -44,13 +44,13 @@ static void	ms_unset_delete_var(t_envp *envp)
 /* Create new "envp"			*/
 /* after unset built-in			*/
 /*------------------------------*/
-static void	ms_unset_new_envp(char *cmd, t_envp *envp)
+static void	ms_unset_new_envp(char *cmd, t_env *envp)
 {
 	if (!envp)
 		return ;
 	while (envp->next)
 	{
-		if (ft_strcmp(cmd, envp->name) == 0)
+		if (ft_strcmp(cmd, envp->key) == 0)
 		{
 			ms_unset_delete_var(envp);
 			while (envp->prev)
@@ -68,7 +68,7 @@ static void	ms_unset_new_envp(char *cmd, t_envp *envp)
 /* minishell unset				*/
 /* built-in main function		*/
 /*------------------------------*/
-int	ms_unset(char **cmd, t_envp *envp)
+int	ms_unset(char **cmd, t_env *envp)
 {
 	int	i;
 	
