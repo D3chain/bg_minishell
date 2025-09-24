@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 19:57:29 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 10:24:51 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@ typedef enum e_ast_nodekind
 {
 	AST_CMD,
 	AST_PIPE,
-	AST_ANDOR
+	AST_AND,
+	AST_OR
 }	t_ast_nodekind;
-
-typedef enum e_ast_andor_op
-{
-	AO_AND,
-	AO_OR
-}	t_ast_andor_op;
 
 typedef enum e_ast_redirkind
 {
@@ -58,13 +53,7 @@ typedef struct s_ast
 		{
 			struct s_ast	*left;
 			struct s_ast	*right;
-		}	s_pipe;
-		struct
-		{
-			t_ast_andor_op	op;
-			struct s_ast	*left;
-			struct s_ast	*right;
-		}	s_andor;
+		}	s_pao;
 		t_cmd	cmd;
 	}	u_pao;
 }	t_ast;
