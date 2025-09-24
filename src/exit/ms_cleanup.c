@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:06:50 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 10:28:38 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 17:30:07 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,7 @@ void	ms_clear_cycle(t_ms *ms)
 {
 	if (ms->cyc.vec)
 		vec_free(ms);
+	// if (ms->cyc.ast)
+	// 	;
+	ft_bzero(&ms->cyc, sizeof(t_cycle));
 }

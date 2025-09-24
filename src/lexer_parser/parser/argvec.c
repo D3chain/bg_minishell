@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 18:27:18 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 20:16:29 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 16:41:10 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	argvec_grow(t_argvec *v, int need)
 	char	**p;
 	
 	if (v->cap == 0)
-		v->cap = 16;
+		ncap = 16;
 	else
 		ncap = v->cap;
 	while (ncap < need)

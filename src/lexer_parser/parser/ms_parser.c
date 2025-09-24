@@ -6,46 +6,32 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 10:36:54 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 11:15:29 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 17:25:01 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_ast	*ms_ast_get_next_node(t_ms *ms)
-{
-	
-}
-
-t_ret	ms_ast_add_cmd(t_ms *ms, t_ast **node)
-{
-	if (!ms->cyc.ast)
-		ms->cyc.ast = *node;
-	
-}
-
-t_ast	*parsepipe(t_ms *ms, int *i)
+t_ast	*parseblock(t_ms *ms, int *i)
 {
 	t_ast	*cmd;
-
-	cmd = parsecmd(ms, i);
-}
-
-t_ast	*parseandor(t_ms *ms, int *i)
-{
-	t_ast	*cmd;
-
-	cmd = parsepipe(ms, i);
+	
+	*i += 1;
+	cmd = parsetokens(ms, i);
+	if (ms->ret != MS_OK)
+		return (NULL);
+	if (ms->cyc.vec[*i].kind != T_RPAR)
+		return (ms_syntax_err(ms->cyc.vec[*i].lex), ms->ret = MS_MISUSE, NULL);
+	*i += 1;
+	return (cmd);
 }
 
 t_ast	*parsetokens(t_ms *ms, int *i)
 {
 	t_ast	*cmd;
-	int		i;
 
-	i = 0;
-	cmd = parseandor(ms, &i);
-
+	cmd = parseandor(ms, i);
+	return (cmd);
 }
 
 t_ret	ms_parser(t_ms *ms)
@@ -55,6 +41,8 @@ t_ret	ms_parser(t_ms *ms)
 
 	i = 0;
 	head = parsetokens(ms, &i);
+	if (!head)
+		return (MS_ERR);
 	ms->cyc.ast = head;
 	return (MS_OK);
 }

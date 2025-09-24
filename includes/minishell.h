@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 18:17:55 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:51:50 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_cycle
 typedef struct s_ms
 {
 	int			status;
+	int			ret;
 	
 	t_env		*env;
 	char		**envp_cache;

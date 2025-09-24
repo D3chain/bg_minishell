@@ -6,11 +6,104 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:11:31 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 18:03:18 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 18:20:44 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// static void	print_tok(t_ms *ms)
+// {
+// 	int	i = -1;
+
+// 	while (++i < ms->cyc.tlen)
+// 		printf("lexeme: %s\n", ms->cyc.vec[i].lex);
+// }
+
+static const char *kind_str(t_ast_kind k)
+{
+	if (k == AST_CMD)  return "CMD";
+	if (k == AST_PIPE) return "PIPE";
+	if (k == AST_AND)  return "AND";
+	if (k == AST_OR)   return "OR";
+	if (k == AST_R_IN)  return "R_IN";
+	if (k == AST_H_DOC) return "H_DOC";
+	if (k == AST_R_OUT) return "R_OUT";
+	if (k == AST_R_APP) return "R_APP";
+	return "?";
+}
+
+static const char *redir_str(t_ast_kind k)
+{
+	if (k == AST_R_IN)  return "<";
+	if (k == AST_R_OUT) return ">";
+	if (k == AST_R_APP) return ">>";
+	if (k == AST_H_DOC) return "<<";
+	return "?";
+}
+
+static void indent(int n)
+{
+	while (n-- > 0)
+		write(1, "  ", 2);
+}
+
+static void ast_print_cmd(const t_cmd *c, int depth)
+{
+	int i;
+
+	indent(depth);
+	printf("NODE CMD:\n");
+
+	indent(depth+1);
+	printf("argc=%d\n", c->argc);
+
+	i = 0;
+	while (i < c->argc)
+	{
+		indent(depth+1);
+		printf("argv[%d]: %s\n", i, c->argv[i]);
+		i++;
+	}
+	i = 0;
+	while (i < c->redir_count)
+	{
+		indent(depth+1);
+		printf("redir[%d]: %s %s%s\n",
+			i,
+			redir_str(c->redirs[i].kind),
+			c->redirs[i].word ? c->redirs[i].word : "(null)",
+			(c->redirs[i].kind == AST_H_DOC && c->redirs[i].quoted_delim) ? " (quoted)" : ""
+		);
+		i++;
+	}
+}
+
+void ast_print(const t_ast *node, int depth)
+{
+	if (!node)
+	{
+		indent(depth);
+		printf("(null)\n");
+		return;
+	}
+	if (node->kind == AST_CMD)
+	{
+		ast_print_cmd(&node->u_pao.cmd, depth);
+		return;
+	}
+	/* nœuds binaires: PIPE / AND / OR */
+	indent(depth);
+	printf("NODE %s\n", kind_str(node->kind));
+
+	indent(depth);
+	printf("left:\n");
+	ast_print(node->u_pao.s_pao.left, depth + 1);
+
+	indent(depth);
+	printf("right:\n");
+	ast_print(node->u_pao.s_pao.right, depth + 1);
+}
 
 t_ret	ms_lexer_parser(t_ms *ms)
 {
@@ -22,5 +115,6 @@ t_ret	ms_lexer_parser(t_ms *ms)
 	r = ms_parser(ms);
 	if (r != MS_OK)
 		return (r);
+	ast_print(ms->cyc.ast, 0);
 	return (r);
 }

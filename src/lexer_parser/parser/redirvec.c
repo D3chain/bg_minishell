@@ -46,7 +46,7 @@ static int	redirvec_grow(t_redirvec *v, int need)
 	t_redir	*p;
 	
 	if (v->cap == 0)
-		v->cap = 16;
+		ncap = 16;
 	else
 		ncap = v->cap;
 	while (ncap < need)

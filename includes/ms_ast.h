@@ -6,34 +6,30 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 10:24:51 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 16:18:21 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_AST_H
 # define MS_AST_H
 
-typedef enum e_ast_nodekind
+typedef enum e_ast_kind
 {
 	AST_CMD,
 	AST_PIPE,
 	AST_AND,
-	AST_OR
-}	t_ast_nodekind;
-
-typedef enum e_ast_redirkind
-{
+	AST_OR,
 	AST_R_IN,
 	AST_H_DOC,
 	AST_R_OUT,
 	AST_R_APP
-}	t_ast_redirkind;
+}	t_ast_kind;
 
 typedef struct e_redir
 {
-	t_ast_redirkind	kind;
-	char			*word;
-	int				quoted_delim;
+	t_ast_kind	kind;
+	char		*word;
+	int			quoted_delim;
 }	t_redir;
 
 typedef struct s_cmd
@@ -46,7 +42,7 @@ typedef struct s_cmd
 
 typedef struct s_ast
 {
-	t_ast_nodekind	kind;
+	t_ast_kind	kind;
 	union
 	{
 		struct
@@ -84,6 +80,5 @@ void	redirvec_free(t_redirvec *v);
 int		redirvec_reserve(t_redirvec *v, int need);
 int		redirvec_push_redir(t_redirvec *v, const t_redir *t);
 
-int		is_quote_in(char *s);
 
 #endif

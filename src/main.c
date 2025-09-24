@@ -6,21 +6,13 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 17:38:41 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 17:36:57 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 volatile sig_atomic_t	g_sigstate = 0;
-
-static void	print_tok(t_ms *ms)
-{
-	int	i = -1;
-
-	while (++i < ms->cyc.tlen)
-		printf("lexeme: %s\n", ms->cyc.vec[i].lex);
-}
 
 static int	ms_init(t_ms *ms, char **envp)
 {
@@ -40,7 +32,6 @@ static int	ms_iter(t_ms *ms)
 		return (r);
 	if (ms_lexer_parser(ms) != MS_OK)
 		return (free(ms->cyc.line), MS_ERR);
-	print_tok(ms);
 	// expand
 	// ms_process(ms);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:01 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 18:15:47 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/24 16:32:33 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int		is_meta(int c);
 
 	// Parser
 t_ret	ms_parser(t_ms *ms);
-int		ms_pars_check_syntax(t_tok *cur);
+t_ast	*parsetokens(t_ms *ms, int *i);
+t_ast	*parseblock(t_ms *ms, int *i);
+t_ast	*parsecmd(t_ms *ms, int *i);
+t_ast	*parsepipe(t_ms *ms, int *i);
+t_ast	*parseandor(t_ms *ms, int *i);
 
 	// Utils
 		// Token
