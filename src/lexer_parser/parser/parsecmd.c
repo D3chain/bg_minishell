@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:10:40 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 17:09:51 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:25:17 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	parseredir(t_ms *ms, int *i, t_redirvec *redv)
 	if (ms->cyc.vec[*i].cat != TKC_WORD)
 	{
 		ms_syntax_err(ms->cyc.vec[*i].lex);
-		ms->ret = MS_MISUSE;
+		ms->cyc.ret = MS_MISUSE;
 		return ;
 	}
 	red.word = ms->cyc.vec[*i].lex;
@@ -55,7 +55,7 @@ static void	parseredir(t_ms *ms, int *i, t_redirvec *redv)
 		red.quoted_delim = 1;
 	if (redirvec_push_redir(redv, &red) != MS_OK)
 	{
-		ms->ret = MS_ERR;
+		ms->cyc.ret = MS_ERR;
 		return ;
 	}
 }
@@ -80,18 +80,18 @@ t_ast	*parsecmd(t_ms *ms, int *i)
 	if (ms->cyc.vec[*i].kind == T_LPAR)
 		return (*i += 1, parseblock(ms, i));
 	if (ms->cyc.vec[*i].cat > TKC_REDIR)
-		return (ms_syntax_err(ms->cyc.vec[*i].lex), ms->ret = MS_MISUSE, NULL);
+		return (ms_syntax_err(ms->cyc.vec[*i].lex), ms->cyc.ret = MS_MISUSE, NULL);
 	init_parsecmd(ms, &cmd, &redv, &argv);
 	while (ms->cyc.vec[*i].cat <= TKC_REDIR)
 	{
 		if (ms->cyc.vec[*i].cat == TKC_WORD)
 		{
 			if (argvec_push_arg(&argv, ms->cyc.vec[*i].lex) != MS_OK)
-				return (ms->ret = MS_ERR, NULL);
+				return (ms->cyc.ret = MS_ERR, NULL);
 			*i += 1;
 		}
 		parseredir(ms, i, &redv);
-		if (ms->ret != MS_OK)
+		if (ms->cyc.ret != MS_OK)
 			return (NULL);
 	}
 	fillcmd(&cmd, redv, argv);

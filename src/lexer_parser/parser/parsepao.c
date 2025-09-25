@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 16:05:01 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 18:19:57 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:25:31 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ t_ast	*parseandor(t_ms *ms, int *i)
 	int		kind;
 
 	cmd = parsepipe(ms, i);
-	if (ms->ret != MS_OK)
+	if (ms->cyc.ret != MS_OK)
 		return (NULL);
 	kind = ms->cyc.vec[*i].kind;
 	if (kind == T_AND_IF || kind == T_OR_IF)
 	{
 		*i += 1;
 		cmd = andorcmd(ms, kind, cmd, parseandor(ms, i));
-		if (ms->ret != MS_OK)
+		if (ms->cyc.ret != MS_OK)
 			return (NULL);
 	}
 	return (cmd);
@@ -65,13 +65,13 @@ t_ast	*parsepipe(t_ms *ms, int *i)
 	t_ast	*cmd;
 
 	cmd = parsecmd(ms, i);
-	if (ms->ret != MS_OK)
+	if (ms->cyc.ret != MS_OK)
 		return (NULL);
 	if (ms->cyc.vec[*i].kind == T_PIPE)
 	{
 		*i += 1;
 		cmd = pipecmd(ms, cmd, parsepipe(ms, i));
-		if (ms->ret != MS_OK)
+		if (ms->cyc.ret != MS_OK)
 			return (NULL);
 	}
 	return (cmd);
