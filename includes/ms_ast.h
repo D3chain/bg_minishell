@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 16:18:21 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:40:13 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_redirvec
 	int		cap;
 }	t_redirvec;
 
+void	free_ast(t_ms *ms);
+
 // argvec
 void	argvec_init(t_argvec *v);
 void	argvec_free(t_argvec *v);
@@ -79,6 +81,5 @@ void	redirvec_init(t_redirvec *v);
 void	redirvec_free(t_redirvec *v);
 int		redirvec_reserve(t_redirvec *v, int need);
 int		redirvec_push_redir(t_redirvec *v, const t_redir *t);
-
 
 #endif
