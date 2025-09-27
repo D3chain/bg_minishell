@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/27 12:40:13 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:26:07 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ typedef enum e_ast_kind
 	AST_R_APP
 }	t_ast_kind;
 
+typedef struct s_argvec
+{
+	char	**data;
+	int		len;
+	int		cap;
+}	t_argvec;
+
+typedef struct s_redirvec
+{
+	t_redir	*data;
+	int		len;
+	int		cap;
+}	t_redirvec;
+
 typedef struct e_redir
 {
 	t_ast_kind	kind;
@@ -34,10 +48,8 @@ typedef struct e_redir
 
 typedef struct s_cmd
 {
-	char	**argv;
-	int		argc;
-	t_redir	*redirs;
-	int		redir_count;
+	t_argvec	argv;
+	t_redirvec	redv;
 }	t_cmd;
 
 typedef struct s_ast
@@ -53,20 +65,6 @@ typedef struct s_ast
 		t_cmd	cmd;
 	}	u_pao;
 }	t_ast;
-
-typedef struct s_argvec
-{
-	char	**data;
-	int		len;
-	int		cap;
-}	t_argvec;
-
-typedef struct s_redirvec
-{
-	t_redir	*data;
-	int		len;
-	int		cap;
-}	t_redirvec;
 
 void	free_ast(t_ms *ms);
 

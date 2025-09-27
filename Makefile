@@ -6,7 +6,7 @@
 #    By: echatela <echatela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/05 12:02:13 by echatela          #+#    #+#              #
-#    Updated: 2025/09/24 16:34:06 by echatela         ###   ########.fr        #
+#    Updated: 2025/09/27 13:36:12 by echatela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS		=	src/main.c \
 				$(LEXPARSDIR)ms_lexer_parser.c \
 				$(LEXDIR)ms_lexer.c $(LEXDIR)utils_lexer.c $(LEXDIR)utils_tok.c $(LEXDIR)ms_lex_read.c $(LEXDIR)tokvec.c $(LEXDIR)tokvec_push.c \
 				$(PARSDIR)ms_parser.c $(PARSDIR)argvec.c $(PARSDIR)redirvec.c $(PARSDIR)parsecmd.c $(PARSDIR)parsepao.c \
-				$(EXITDIR)ms_cleanup.c $(EXITDIR)ms_error.c $(EXITDIR)ms_fatal.c $(EXITDIR)fill.c \
+				$(EXITDIR)ms_cleanup.c $(EXITDIR)ms_error.c $(EXITDIR)ms_fatal.c $(EXITDIR)fill.c $(EXITDIR)free_ast.c \
 				$(UTILSDIR)join_and_free.c $(UTILSDIR)realloc_array.c \
 				$(ENVPASS)ft_create_envp_list.c $(ENVPASS)ft_new_envp.c \
 				src/built_in/ms_cd.c src/built_in/ms_echo.c src/built_in/ms_env.c src/built_in/ms_exit.c src/built_in/ms_export.c src/built_in/ms_pwd.c src/built_in/ms_unset.c \

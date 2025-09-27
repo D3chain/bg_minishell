@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:11:31 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 18:20:44 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:25:35 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,24 @@ static void ast_print_cmd(const t_cmd *c, int depth)
 	printf("NODE CMD:\n");
 
 	indent(depth+1);
-	printf("argc=%d\n", c->argc);
+	printf("argc=%d\n", c->argv.len);
 
 	i = 0;
-	while (i < c->argc)
+	while (i < c->argv.len)
 	{
 		indent(depth+1);
-		printf("argv[%d]: %s\n", i, c->argv[i]);
+		printf("argv[%d]: %s\n", i, c->argv.data[i]);
 		i++;
 	}
 	i = 0;
-	while (i < c->redir_count)
+	while (i < c->redv.len)
 	{
 		indent(depth+1);
 		printf("redir[%d]: %s %s%s\n",
 			i,
-			redir_str(c->redirs[i].kind),
-			c->redirs[i].word ? c->redirs[i].word : "(null)",
-			(c->redirs[i].kind == AST_H_DOC && c->redirs[i].quoted_delim) ? " (quoted)" : ""
+			redir_str(c->redv.data[i].kind),
+			c->redv.data[i].word ? c->redv.data[i].word : "(null)",
+			(c->redv.data[i].kind == AST_H_DOC && c->redv.data[i].quoted_delim) ? " (quoted)" : ""
 		);
 		i++;
 	}

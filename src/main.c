@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 17:36:57 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/27 13:38:01 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,19 @@ static int	ms_iter(t_ms *ms)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
+	int		i;
 
 	(void)argc;
 	(void)argv;
 	if (ms_init(&ms, envp) != MS_OK)
 		return (MS_ERR);
-	while (1)
+	i = 0;
+	while (i < 3)
 	{
 		if (ms_iter(&ms) == MS_SIGINT)
 			break ;
 		ms_clear_cycle(&ms);
+		i++;
 	}
 	ms_cleanup_all(&ms);
 	return (ms.status);

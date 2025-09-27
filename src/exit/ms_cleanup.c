@@ -6,13 +6,13 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:06:50 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/27 12:40:45 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/27 14:08:39 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	vec_free(t_ms *ms)
+static void	vec_free(t_ms *ms)
 {
 	int	i;
 
@@ -23,9 +23,17 @@ void	vec_free(t_ms *ms)
 	free(ms->cyc.vec);
 }
 
-void	ms_cleanup_all(t_ms *ms)
+static void	free_envp_cache(t_ms *ms)
 {
-	ms_clear_cycle(ms);
+	int	i;
+
+	i = 0;
+	while (ms->envp_cache[i])
+	{
+		free(ms->envp_cache[i]);
+		i++;
+	}
+	free(ms->envp_cache);
 }
 
 void	ms_clear_cycle(t_ms *ms)
@@ -33,6 +41,15 @@ void	ms_clear_cycle(t_ms *ms)
 	if (ms->cyc.vec)
 		vec_free(ms);
 	if (ms->cyc.ast)
-		free_ast(ms->cyc.ast);
+		free_ast(ms);
 	ft_bzero(&ms->cyc, sizeof(t_cycle));
+}
+
+void	ms_cleanup_all(t_ms *ms)
+{
+	ms_clear_cycle(ms);
+	if (ms->env)
+		ft_clear_lstenvp(&ms->env, 0);
+	if (ms->envp_cache)
+		free_envp_cache(ms);
 }
