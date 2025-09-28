@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/25 10:24:55 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/28 15:10:39 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "ms_tok.h"
 # include "ms_ast.h"
+# include "ms_expand.h"
 # include "ms_env.h"
 # include "ms_term.h"
 # include "ms_error.h"
