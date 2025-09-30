@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:25:19 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 16:34:16 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 17:44:09 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	expand_one(t_ms *ms, char **out, int is_hd)
 	arg = *out;
 	while (arg[i])
 	{
-		if (arg[i] != '$' || is_hd || sb.in_sq || sb.in_dq)
+		if (arg[i] != '$' || is_hd || sb.in_sq)
 			not_dolar(ms, &sb, arg[i], &i);
 		else
 			dolar(ms, &sb, arg, &i);
