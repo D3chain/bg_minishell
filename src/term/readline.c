@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:20:33 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 16:35:05 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/30 18:12:57 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_ret	ms_readline(t_ms *ms)
 	line = readline(prompt);
 	free(prompt);
 	if (!line)
-		return (MS_EOF);
+		return (printf("caca"), MS_EOF);
 	if (*line != '\0')
 		add_history(line);
 	ms->cyc.line = line;

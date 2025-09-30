@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:06:50 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/27 14:08:39 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 18:18:00 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	free_envp_cache(t_ms *ms)
 
 void	ms_clear_cycle(t_ms *ms)
 {
+	if (ms->cyc.line)
+		free(ms->cyc.line);
 	if (ms->cyc.vec)
 		vec_free(ms);
 	if (ms->cyc.ast)
@@ -52,4 +54,5 @@ void	ms_cleanup_all(t_ms *ms)
 		ft_clear_lstenvp(&ms->env, 0);
 	if (ms->envp_cache)
 		free_envp_cache(ms);
+	rl_clear_history();
 }
