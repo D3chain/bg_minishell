@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:11:31 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/27 13:25:35 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:21:31 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void ast_print_cmd(const t_cmd *c, int depth)
 	}
 }
 
-void ast_print(const t_ast *node, int depth)
+void ast_print(t_ms *ms, t_ast *node, int depth)
 {
 	if (!node)
 	{
@@ -89,6 +89,7 @@ void ast_print(const t_ast *node, int depth)
 	}
 	if (node->kind == AST_CMD)
 	{
+		expand(ms, &node->u_pao.cmd);
 		ast_print_cmd(&node->u_pao.cmd, depth);
 		return;
 	}
@@ -98,11 +99,11 @@ void ast_print(const t_ast *node, int depth)
 
 	indent(depth);
 	printf("left:\n");
-	ast_print(node->u_pao.s_pao.left, depth + 1);
+	ast_print(ms, node->u_pao.s_pao.left, depth + 1);
 
 	indent(depth);
 	printf("right:\n");
-	ast_print(node->u_pao.s_pao.right, depth + 1);
+	ast_print(ms, node->u_pao.s_pao.right, depth + 1);
 }
 
 t_ret	ms_lexer_parser(t_ms *ms)
@@ -115,6 +116,6 @@ t_ret	ms_lexer_parser(t_ms *ms)
 	r = ms_parser(ms);
 	if (r != MS_OK)
 		return (r);
-	ast_print(ms->cyc.ast, 0);
+	ast_print(ms, ms->cyc.ast, 0);
 	return (r);
 }

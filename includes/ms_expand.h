@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:07:04 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 14:17:22 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:32:33 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_sb
 	int		in_dq;
 }	t_sb;
 
+void	expand(t_ms *ms, t_cmd *cmd);
 void	init_sb(t_sb *sb);
 void	sb_putc(t_ms *ms, t_sb *sb, char c);
 void	sb_puts(t_ms *ms, t_sb *sb, const char *s);

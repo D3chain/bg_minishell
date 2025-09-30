@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:25:19 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 16:02:11 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:34:16 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	not_dolar(t_ms *ms, t_sb *sb, char c, int *i)
 		sb->in_dq = !sb->in_dq;
 	else
 		sb_putc(ms, sb, c);
-	*i++;
+	*i += 1;
 }
 
 static void	dolar(t_ms *ms, t_sb *sb, const char *arg, int *i)
@@ -29,9 +29,9 @@ static void	dolar(t_ms *ms, t_sb *sb, const char *arg, int *i)
 	int		n;
 	t_env	*cur;
 
-	*i++;
+	*i += 1;
 	if (arg[*i] == '?')
-		return (*i++, sb_puts(ms, sb, ft_itoa(ms->status)));
+		return (*i += 1, sb_puts(ms, sb, ft_itoa(ms->status)));
 	if (!ft_isalpha(arg[*i]) && arg[*i] != '_')
 		return (sb_putc(ms, sb, '$'));
 	n = 0;
@@ -63,6 +63,8 @@ static void	expand_one(t_ms *ms, char **out, int is_hd)
 		else
 			dolar(ms, &sb, arg, &i);
 	}
+	printf("%s\n", sb.buf);
+	sb_add_reset_buf(ms, &sb);
 	free(*out);
 	*out = sb.out;
 }
@@ -76,7 +78,7 @@ void	expand(t_ms *ms, t_cmd *cmd)
 		i = 0;
 		while (i < cmd->argv.len)
 		{
-			expand_one(ms, cmd->argv.data[i], 0);
+			expand_one(ms, &cmd->argv.data[i], 0);
 			i++;
 		}
 	}
@@ -86,9 +88,9 @@ void	expand(t_ms *ms, t_cmd *cmd)
 		while (i < cmd->redv.len)
 		{
 			if (cmd->redv.data[i].kind == AST_H_DOC)
-				expand_one(ms, cmd->redv.data[i].word, 1);
+				expand_one(ms, &cmd->redv.data[i].word, 1);
 			else
-				expand_one(ms, cmd->redv.data[i].word, 0);
+				expand_one(ms, &cmd->redv.data[i].word, 0);
 			i++;
 		}
 	}

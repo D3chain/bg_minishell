@@ -6,7 +6,7 @@
 #    By: echatela <echatela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/05 12:02:13 by echatela          #+#    #+#              #
-#    Updated: 2025/09/27 13:36:12 by echatela         ###   ########.fr        #
+#    Updated: 2025/09/30 16:23:31 by echatela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS		=	src/main.c \
 				$(LEXPARSDIR)ms_lexer_parser.c \
 				$(LEXDIR)ms_lexer.c $(LEXDIR)utils_lexer.c $(LEXDIR)utils_tok.c $(LEXDIR)ms_lex_read.c $(LEXDIR)tokvec.c $(LEXDIR)tokvec_push.c \
 				$(PARSDIR)ms_parser.c $(PARSDIR)argvec.c $(PARSDIR)redirvec.c $(PARSDIR)parsecmd.c $(PARSDIR)parsepao.c \
+				$(EXPDIR)expand.c $(EXPDIR)str_builder.c \
 				$(EXITDIR)ms_cleanup.c $(EXITDIR)ms_error.c $(EXITDIR)ms_fatal.c $(EXITDIR)fill.c $(EXITDIR)free_ast.c \
 				$(UTILSDIR)join_and_free.c $(UTILSDIR)realloc_array.c \
 				$(ENVPASS)ft_create_envp_list.c $(ENVPASS)ft_new_envp.c \
@@ -30,6 +31,7 @@ TERMDIR		=	src/term/
 LEXPARSDIR	=	src/lexer_parser/
 LEXDIR		=	src/lexer_parser/lexer/
 PARSDIR		=	src/lexer_parser/parser/
+EXPDIR		=	src/expand/
 EXITDIR		=	src/exit/
 ENVPASS		=	src/env/
 UTILSDIR	=	src/utils/

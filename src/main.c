@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/27 13:38:01 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:18:02 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int	ms_iter(t_ms *ms)
 		return (r);
 	if (ms_lexer_parser(ms) != MS_OK)
 		return (free(ms->cyc.line), MS_ERR);
-	// expand
 	// ms_process(ms);
 	return (0);
 }

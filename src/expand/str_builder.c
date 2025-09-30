@@ -6,14 +6,14 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 14:01:59 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 14:17:15 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:24:50 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "ms_expand.h"
 
-static void	init_sb(t_sb *sb)
+void	init_sb(t_sb *sb)
 {
 	sb->out = NULL;
 	ft_bzero(sb->buf, (BUFFER_SIZE * sizeof(char)));
