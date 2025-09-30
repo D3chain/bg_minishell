@@ -5,83 +5,91 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/27 12:44:03 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/29 12:39:35 by echatela         ###   ########.fr       */
+/*   Created: 2025/09/30 11:25:19 by echatela          #+#    #+#             */
+/*   Updated: 2025/09/30 16:02:11 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "ms_expand.h"
 
-static int	q_handle(char c, int *i, t_sb *cur)
+static void	not_dolar(t_ms *ms, t_sb *sb, char c, int *i)
 {
-	if (c == '\'' && !cur->in_dq)
-	{
-		cur->in_sq = !cur->in_sq;
-		*i++;
-		return (1);
-	}
-	if (c == '\"' && !cur->in_sq)
-	{
-		cur->in_dq = !cur->in_dq;
-		*i++;
-		return (1);
-	}
-	return (0);
+	if (c == '\'' && !sb->in_dq)
+		sb->in_sq = !sb->in_sq;
+	else if (c == '\"' && !sb->in_sq)
+		sb->in_dq = !sb->in_dq;
+	else
+		sb_putc(ms, sb, c);
+	*i++;
 }
 
-static int	expand_one(t_ms *ms, const char *arg, void *out, int argred)
+static void	dolar(t_ms *ms, t_sb *sb, const char *arg, int *i)
 {
-	t_sb	cur;
-	char	*out_str;
-	int		i;
+	int		n;
+	t_env	*cur;
 
-	if (sb_init(&cur) != MS_OK)
-		ms_fatal(ms, "expand");
+	*i++;
+	if (arg[*i] == '?')
+		return (*i++, sb_puts(ms, sb, ft_itoa(ms->status)));
+	if (!ft_isalpha(arg[*i]) && arg[*i] != '_')
+		return (sb_putc(ms, sb, '$'));
+	n = 0;
+	while (arg[*i + n] && (ft_isalnum(arg[*i + n]) || arg[*i + n] == '_'))
+		n++;
+	cur = ms->env;
+	while (cur)
+	{
+		if (ft_strncmp(&arg[*i], cur->key, n) == 0)
+			return (*i += n, sb_puts(ms, sb, cur->val));
+		cur = cur->next;
+	}
+	*i += n;
+}
+
+static void	expand_one(t_ms *ms, char **out, int is_hd)
+{
+	t_sb		sb;
+	const char	*arg;
+	int			i;
+
+	init_sb(&sb);
 	i = 0;
+	arg = *out;
 	while (arg[i])
 	{
-		if (q_handle(arg[i], &i, &cur))
-			continue ;
-		if (arg[i] == '$' && !cur.in_sq)
-		{
-			sb_puts(&cur, read_var(ms, &arg[i], &cur, &i));
-			continue ;
-		}
-		sb_putc(&cur, arg[i++]);
-	}
-	if (sb_detach_push(&cur, &out_str, out, argred) == MS_ERR)
-		ms_fatal(ms, "expand");
-	return (1);
-}
-
-static void	expand_argv(t_ms *ms, t_argvec *argv)
-{
-	t_argvec	out;
-	size_t		i;
-
-	i = 0;
-	argvec_init(&out);
-	while (i < argv->len)
-	{
-		const char	*arg = argv->data[i];
-		if (!ft_strchr(arg, '$') && !ft_strchr(arg, '\'') && !ft_strchr(arg, '\"'))
-			argvec_push_arg(&out, ft_strdup(arg));
+		if (arg[i] != '$' || is_hd || sb.in_sq || sb.in_dq)
+			not_dolar(ms, &sb, arg[i], &i);
 		else
-			expand_one(ms, arg, &out, 0);
+			dolar(ms, &sb, arg, &i);
 	}
-	argvec_free(argv);
-	*argv = out;
-}
-
-static void	expand_redv(t_ms *ms, t_redirvec *redv)
-{
-
+	free(*out);
+	*out = sb.out;
 }
 
 void	expand(t_ms *ms, t_cmd *cmd)
 {
+	int	i;
+
 	if (cmd->argv.data)
-		expand_argv(ms, &cmd->argv);
+	{
+		i = 0;
+		while (i < cmd->argv.len)
+		{
+			expand_one(ms, cmd->argv.data[i], 0);
+			i++;
+		}
+	}
 	if (cmd->redv.data)
-		expand_redv(ms, &cmd->redv);
+	{
+		i = 0;
+		while (i < cmd->redv.len)
+		{
+			if (cmd->redv.data[i].kind == AST_H_DOC)
+				expand_one(ms, cmd->redv.data[i].word, 1);
+			else
+				expand_one(ms, cmd->redv.data[i].word, 0);
+			i++;
+		}
+	}
 }
