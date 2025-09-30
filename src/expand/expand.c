@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/27 12:44:03 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/28 15:53:58 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:39:35 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	q_handle(char c, int *i, t_sb *cur)
 	return (0);
 }
 
-static int	expand_one(t_ms *ms, const char *arg, t_argvec *out)
+static int	expand_one(t_ms *ms, const char *arg, void *out, int argred)
 {
 	t_sb	cur;
 	char	*out_str;
@@ -47,15 +47,11 @@ static int	expand_one(t_ms *ms, const char *arg, t_argvec *out)
 			sb_puts(&cur, read_var(ms, &arg[i], &cur, &i));
 			continue ;
 		}
-		sb_putc(&cur, arg[i]);
-		i++;
+		sb_putc(&cur, arg[i++]);
 	}
-	if (cur.i == 0)
-		return (free(cur.s), 0);
-	if (sb_detach(&cur, &out_str) == MS_ERR)
+	if (sb_detach_push(&cur, &out_str, out, argred) == MS_ERR)
 		ms_fatal(ms, "expand");
-	argvec_push_arg(out, out_str);
-	return (1)
+	return (1);
 }
 
 static void	expand_argv(t_ms *ms, t_argvec *argv)
@@ -71,10 +67,15 @@ static void	expand_argv(t_ms *ms, t_argvec *argv)
 		if (!ft_strchr(arg, '$') && !ft_strchr(arg, '\'') && !ft_strchr(arg, '\"'))
 			argvec_push_arg(&out, ft_strdup(arg));
 		else
-			expand_one(ms, arg, &out);
+			expand_one(ms, arg, &out, 0);
 	}
 	argvec_free(argv);
 	*argv = out;
+}
+
+static void	expand_redv(t_ms *ms, t_redirvec *redv)
+{
+
 }
 
 void	expand(t_ms *ms, t_cmd *cmd)
