@@ -6,7 +6,7 @@
 /*   By: garivoir <garivoir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:01:44 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/23 12:15:36 by garivoir         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:24:01 by garivoir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 /*------------------------------*/
 
 #include "minishell.h"
+
+// rajouter une fonction qui permet d'ajouter a l'env meme les variables
+// sans valeur, et rajouter a la struct t_env si la variable doit ou non
+// etre affichee dans l'environnement
+
+// puis rajouter aussi une fonction qui permet d'append une variable (var+=a)
 
 /*------------------------------*/
 /* Print "envp" variable		*/
