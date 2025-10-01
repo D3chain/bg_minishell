@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 18:30:38 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:54:27 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "ms_expand.h"
 # include "ms_env.h"
 # include "ms_term.h"
+# include "ms_h_doc.h"
 # include "ms_error.h"
 # include "ms_built_in.h"
 # include "ms_lexer_parser.h"

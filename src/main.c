@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 12:58:36 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:55:13 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	ms_iter(t_ms *ms)
 		return (MS_OK);
 	if (ms_lexer_parser(ms) != MS_OK)
 		return (MS_MISUSE);
-	ms_h_doc(ms);
 	if (ms->cyc.ret == MS_EOF)
 		return (MS_EOF);
 	// ms_process(ms);
@@ -50,7 +49,6 @@ static int	ms_iter(t_ms *ms)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ms	ms;
-	int		i;
 
 	(void)argc;
 	(void)argv;
@@ -60,7 +58,6 @@ int	main(int argc, char **argv, char **envp)
 		if (ms_iter(&ms) == MS_SIGQUIT)
 			break ;
 		ms_clear_cycle(&ms);
-		i++;
 	}
 	printf("Status: %d\n", ms.status);
 	ms_cleanup_all(&ms);

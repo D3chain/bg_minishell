@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:10:40 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/27 14:16:07 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/01 21:03:02 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,31 @@ static int	is_quote_in_str(char *s)
 		s++;
 	}
 	return (0);
+}
+
+static void	str_no_quotes(char *s, int in_sq, int in_dq, int *qd)
+{
+	int	i;
+	int	j;
+
+	*qd = 1;
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == '\'' && !in_dq)
+		{
+			in_sq = !in_sq;
+			i++;
+		}
+		else if (s[i] == '\"' && !in_sq)
+		{
+			in_dq = !in_dq;
+			i++;
+		}
+		else
+			s[j++] = s[i++];
+	}
 }
 
 static void	init_parsecmd(t_ms *ms, t_ast **node)
@@ -52,7 +77,9 @@ static void	parseredir(t_ms *ms, int *i, t_redirvec *redv)
 	red.quoted_delim = 0;
 	*i += 1;
 	if (red.kind == AST_H_DOC && is_quote_in_str(red.word))
-		red.quoted_delim = 1;
+		str_no_quotes(red.word, 0, 0, &red.quoted_delim);
+	if (red.kind == AST_H_DOC)
+		ms->cyc.ret = AST_H_DOC;
 	if (redirvec_push_redir(redv, &red) != MS_OK)
 	{
 		ms->cyc.ret = MS_ERR;
@@ -78,8 +105,10 @@ t_ast	*parsecmd(t_ms *ms, int *i)
 			*i += 1;
 		}
 		parseredir(ms, i, &cmd->u_pao.cmd.redv);
-		if (ms->cyc.ret != MS_OK)
+		if (ms->cyc.ret == MS_ERR || ms->cyc.ret == MS_MISUSE)
 			return (NULL);
+		if (ms->cyc.ret == AST_H_DOC)
+			set_h_doc_h_red(ms, &cmd->u_pao.cmd.redv.data[cmd->u_pao.cmd.redv.len - 1], cmd->u_pao.cmd.hd_fd);
 	}
 	return (cmd);
 }

@@ -6,13 +6,13 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 18:22:25 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 18:24:48 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/01 20:54:44 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_H_DOC_H
 # define MS_H_DOC_H
 
-void	ast_set_h_doc(t_ms *ms, t_ast *node, int depth);
+void	set_h_doc_h_red(t_ms *ms, t_redir *h_red, int *hd_fd);
 
 #endif
