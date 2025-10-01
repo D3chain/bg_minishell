@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:20:25 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/22 09:21:13 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 18:59:08 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,21 @@ static char	*prompt_build(const char *prefix, const char *cwd)
 	return (p);
 }
 
-t_ret	ms_prompt_make(char **out_prompt, t_env *env)
+char	*ms_prompt_make(t_ms *ms, t_env *env)
 {
 	char	*cwd;
+	char	*prompt;
 
-	if (!out_prompt)
-		return (MS_ERR);
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		cwd = find_cwd_in_env(env);
 	if (!cwd)
 		cwd = ft_strdup("");
 	if (!cwd)
-		return (MS_ERR);
-	*out_prompt = prompt_build("minishell:", cwd);
+		ms_fatal(ms, "prompt");
+	prompt = prompt_build("minishell:", cwd);
 	free(cwd);
-	if (!*out_prompt)
-		return (MS_ERR);
-	return (MS_OK);
+	if (!prompt)
+		ms_fatal(ms, "prompt");
+	return (prompt);
 }

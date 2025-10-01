@@ -6,13 +6,11 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 18:24:13 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/01 11:09:37 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-volatile sig_atomic_t	g_sigstate = 0;
 
 static int	ms_init(t_ms *ms, char **envp)
 {
@@ -24,18 +22,22 @@ static int	ms_init(t_ms *ms, char **envp)
 
 static int	ms_iter(t_ms *ms)
 {
-	t_ret	r;
-
 	ft_bzero(&ms->cyc, sizeof(ms->cyc));
-	r = ms_readline(ms);
-	if (r != MS_OK)
-		return (r);
-	if (ms->cyc.line[0] == 0)
+	init_signals();
+	g_sigstate = 0;
+	ms_readline(ms);
+	if (!ms->cyc.line)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		ms->status = 128 + SIGQUIT;
+		return (MS_SIGQUIT);
+	}
+	if (!*ms->cyc.line)
 		return (MS_OK);
 	if (ms_lexer_parser(ms) != MS_OK)
 		return (MS_ERR);
 	// ms_process(ms);
-	return (0);
+	return (MS_OK);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -50,11 +52,12 @@ int	main(int argc, char **argv, char **envp)
 	i = 0;
 	while (i < 3)
 	{
-		if (ms_iter(&ms) == MS_SIGINT)
+		if (ms_iter(&ms) == MS_SIGQUIT)
 			break ;
 		ms_clear_cycle(&ms);
 		i++;
 	}
+	printf("Status: %d\n", ms.status);
 	ms_cleanup_all(&ms);
 	return (ms.status);
 }

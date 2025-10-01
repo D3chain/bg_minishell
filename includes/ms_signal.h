@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_lexer.c                                      :+:      :+:    :+:   */
+/*   ms_signal.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 15:43:34 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 10:39:31 by echatela         ###   ########.fr       */
+/*   Created: 2025/09/30 18:28:27 by echatela          #+#    #+#             */
+/*   Updated: 2025/10/01 09:46:19 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MS_SIGNAL_H
+# define MS_SIGNAL_H
 
-int	is_blank(int c)
-{
-	return (c == ' ' || c == '\t' || (c >= 9 && c <= 13));
-}
+# include <signal.h>
 
-int	is_meta(int c)
+typedef enum e_sigmode
 {
-	const int meta[] = {'|', '&', ';', '(', ')', '<', '>', 0};
-	int	i;
-	
-	i = 0;
-	while (meta[i])
-	{
-		if (c == meta[i])
-			return (meta[i]);
-		i++;
-	}
-	return (0);
-}
+	SIGMODE_INTERACTIVE,
+	SIGMODE_HEREDOC,
+	SIGMODE_CHILD
+}	t_sigmode;
+
+extern volatile sig_atomic_t g_sigstate;
+
+void init_signals(void);
+void child_signals(void);
+
+#endif

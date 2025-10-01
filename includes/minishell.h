@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/28 15:10:39 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 18:30:38 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@
 # include "ms_error.h"
 # include "ms_built_in.h"
 # include "ms_lexer_parser.h"
+# include "ms_signal.h"
 
 # include "libft.h"
-
-# include <signal.h>
-
-extern volatile sig_atomic_t g_sigstate;
 
 typedef struct s_cycle
 {

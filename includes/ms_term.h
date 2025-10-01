@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 08:38:44 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/21 14:39:16 by echatela         ###   ########.fr       */
+/*   Updated: 2025/09/30 19:01:08 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-t_ret	ms_prompt_make(char **out_prompt, t_env *env);
-t_ret	ms_readline(t_ms *ms);
+char	*ms_prompt_make(t_ms *ms, t_env *env);
+void	ms_readline(t_ms *ms);
 
 #endif
