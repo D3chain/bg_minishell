@@ -6,12 +6,11 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 18:27:44 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 10:57:06 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/01 11:14:57 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 volatile sig_atomic_t g_sigstate = 0;
 

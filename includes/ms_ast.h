@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/27 13:26:07 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/01 12:14:19 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_cmd
 {
 	t_argvec	argv;
 	t_redirvec	redv;
+	int			hd_fd[2];
+	int			fd[2];
 }	t_cmd;
 
 typedef struct s_ast
