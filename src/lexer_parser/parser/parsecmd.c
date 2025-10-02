@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:10:40 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 11:29:54 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:34:04 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,16 @@ t_ast	*parsecmd(t_ms *ms, int *i)
 		if (ms->cyc.vec[*i].cat == TKC_WORD)
 		{
 			if (argvec_push_arg(&cmd->u_pao.cmd.argv, ms->cyc.vec[*i].lex) != MS_OK)
-				return (ms->cyc.ret = MS_ERR, NULL);
+				return (ms->cyc.ret = MS_ERR, free_cmd(cmd), NULL);
 			*i += 1;
 		}
 		parseredir(ms, i, &cmd->u_pao.cmd.redv);
 		if (ms->cyc.ret == MS_ERR || ms->cyc.ret == MS_MISUSE)
-			return (NULL);
+			return (free_cmd(cmd), NULL);
 		if (ms->cyc.ret == AST_H_DOC)
-			set_h_doc_h_red(ms, &cmd->u_pao.cmd.redv.data[cmd->u_pao.cmd.redv.len - 1], cmd->u_pao.cmd.hd_fd);
+			here_doc(ms, &cmd->u_pao.cmd.redv.data[cmd->u_pao.cmd.redv.len - 1], cmd->u_pao.cmd.hd_fd);
+		if (ms->cyc.ret != MS_OK)
+			return (free_cmd(cmd), NULL);
 	}
 	return (cmd);
 }

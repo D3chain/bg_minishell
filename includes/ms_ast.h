@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:11:56 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 12:14:19 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:32:13 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_ast
 }	t_ast;
 
 void	free_ast(t_ms *ms);
+void	free_cmd(t_ast *cmd);
 
 // argvec
 void	argvec_init(t_argvec *v);

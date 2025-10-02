@@ -6,12 +6,12 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 15:15:01 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/24 16:32:33 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:21:12 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_LEXER_H
-# define MS_LEXER_H
+#ifndef MS_LEXER_PARSER_H
+# define MS_LEXER_PARSER_H
 
 # include "ms_types.h"
 
@@ -37,5 +37,7 @@ t_ast	*parseandor(t_ms *ms, int *i);
 	// Utils
 		// Token
 t_tok	ms_create_tok(t_tokkind kind, char *s);
+
+void	here_doc(t_ms *ms, t_redir *h_red, int *hd_fd);
 
 #endif

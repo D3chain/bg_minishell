@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_signal.h                                        :+:      :+:    :+:   */
+/*   ms_child.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 18:28:27 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 15:56:37 by echatela         ###   ########.fr       */
+/*   Created: 2025/10/02 14:08:45 by echatela          #+#    #+#             */
+/*   Updated: 2025/10/02 14:09:43 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_SIGNAL_H
-# define MS_SIGNAL_H
+#ifndef MS_CHILD_H
+# define MS_CHILD_H
 
-# include <signal.h>
-
-extern volatile sig_atomic_t g_sigstate;
-
-void	init_sig(int mode);
-int		wstatus(int w);
-void	ign_sig();
+# include <sys/types.h>
+# include <sys/wait.h>
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:11:31 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 10:54:49 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 16:03:08 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ t_ret	ms_lexer_parser(t_ms *ms)
 		return (MS_MISUSE);
 	if (ms_parser(ms) == MS_MISUSE)
 		return (MS_MISUSE);
-	ast_print(ms, ms->cyc.ast, 0);
+	// ast_print(ms, ms->cyc.ast, 0);
 	return (MS_OK);
 }

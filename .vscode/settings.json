@@ -5,6 +5,8 @@
 		"ms_types.h": "c",
 		"libft.h": "c",
 		"unistd.h": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"ms_ast.h": "c",
+		"ms_tok.h": "c"
 	}
 }

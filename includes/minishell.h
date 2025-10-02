@@ -6,23 +6,23 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 20:54:27 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:59:58 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "ms_env.h"
+# include "ms_signal.h"
+# include "ms_term.h"
+# include "ms_lexer_parser.h"
 # include "ms_tok.h"
 # include "ms_ast.h"
+# include "ms_child.h"
 # include "ms_expand.h"
-# include "ms_env.h"
-# include "ms_term.h"
-# include "ms_h_doc.h"
-# include "ms_error.h"
 # include "ms_built_in.h"
-# include "ms_lexer_parser.h"
-# include "ms_signal.h"
+# include "ms_error.h"
 
 # include "libft.h"
 
@@ -55,5 +55,8 @@ typedef struct s_ms
 
 void	ms_clear_cycle(t_ms *ms);
 void	ms_cleanup_all(t_ms *ms);
+
+
+void	close_pair(int *fd);
 
 #endif

@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_h_doc.h                                         :+:      :+:    :+:   */
+/*   fd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 18:22:25 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 20:54:44 by echatela         ###   ########.fr       */
+/*   Created: 2025/10/02 14:59:17 by echatela          #+#    #+#             */
+/*   Updated: 2025/10/02 15:09:09 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_H_DOC_H
-# define MS_H_DOC_H
+#include "minishell.h"
 
-void	set_h_doc_h_red(t_ms *ms, t_redir *h_red, int *hd_fd);
-
-#endif
+void	close_pair(int *fd)
+{
+	if (fd[0] != -1)
+		close(fd[0]);
+	if (fd[1] != -1)
+		close(fd[1]);
+}
