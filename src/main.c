@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 11:02:47 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 13:21:14 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ms_init(t_ms *ms, char **envp)
 static void	init_cycle(t_ms *ms)
 {
 	ft_bzero(&ms->cyc, sizeof(ms->cyc));
-	init_signals();
+	init_sig(0);
 	g_sigstate = 0;
 }
 

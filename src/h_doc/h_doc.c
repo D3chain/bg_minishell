@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 11:17:45 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 11:36:03 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 13:24:05 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,22 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (0);
 }
 
-void	set_h_doc_h_red(t_ms *ms, t_redir *h_red, int *hd_fd)
+static void	_hd_init(t_ms *ms, int *hd_fd)
 {
-	char	*line;
-
 	ms->cyc.ret = MS_OK;
-	if (hd_fd[0] != -1)
+	if (hd_fd[0] != -1 || hd_fd[1] != -1)
 	{
 		close(hd_fd[0]);
 		close(hd_fd[1]);
 	}
 	if (pipe(hd_fd) != 0)
-		return (ms_fatal(ms, "pipe"));
-	init_signals();
+		ms_fatal(ms, "pipe hd");
+}
+
+static void	_here_doc(t_ms *ms, t_redir *h_red, int *hd_fd)
+{
+	char	*line;
+
 	while (1)
 	{
 		g_sigstate = 0;
@@ -54,6 +57,22 @@ void	set_h_doc_h_red(t_ms *ms, t_redir *h_red, int *hd_fd)
 		write(hd_fd[1], line, ft_strlen(line));
 		write(hd_fd[1], "\n", 1);
 	}
+}
+
+void	here_doc(t_ms *ms, t_redir *h_red, int *hd_fd)
+{
+	int		pid;
+
+	_hd_init(ms, hd_fd);
+	pid = fork();
+	if (pid == -1)
+		ms_fatal(ms, "fork");
+	if (pid == 0)
+	{
+		init_sig(1);
+		_here_doc(ms, h_red, hd_fd);
+	}
+	
 }
 
 // void	set_h_doc_cmd(t_ms *ms, t_ast *cmd)
