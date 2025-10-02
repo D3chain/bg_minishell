@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 11:17:45 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 16:05:29 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:04:51 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void	_here_doc(t_ms *ms, t_redir *h_red, int *hd_fd)
 		if (!h_red->quoted_delim)
 			expand_one(ms, &line, 0);
 		write(hd_fd[1], line, ft_strlen(line));
+		free(line);
 		write(hd_fd[1], "\n", 1);
 	}
 }
