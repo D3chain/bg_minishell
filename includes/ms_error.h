@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 09:55:12 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/22 09:16:36 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 11:22:18 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum	e_ret
 	MS_OK		= 0,
 	MS_ERR		= 1,
 	MS_MISUSE	= 2,
-	MS_EOF		= 2,
+	MS_EOF		= 3,
 	MS_NOTEXEC	= 126,
 	MS_NOTFOUND	= 127,
 	MS_SIGINT	= 130,

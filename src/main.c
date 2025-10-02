@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:00:39 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 20:55:13 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 11:02:47 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,31 @@ static void	init_cycle(t_ms *ms)
 	g_sigstate = 0;
 }
 
+static int	signal_quit(t_ms *ms, int sig)
+{
+	if (!ms->cyc.line)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		return (MS_EOF);
+	}
+	if (sig == SIGINT)
+	{
+		ms->status = 128 + SIGINT;
+		return (MS_SIGINT);
+	}
+	return (MS_OK);
+}
+
 static int	ms_iter(t_ms *ms)
 {
 	init_cycle(ms);
 	ms_readline(ms);
-	if (!ms->cyc.line)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		ms->status = 128 + SIGQUIT;
-		return (MS_SIGQUIT);
-	}
+	if (g_sigstate != 0 || !ms->cyc.line)
+		return (signal_quit(ms, g_sigstate));
 	if (!*ms->cyc.line)
 		return (MS_OK);
 	if (ms_lexer_parser(ms) != MS_OK)
 		return (MS_MISUSE);
-	if (ms->cyc.ret == MS_EOF)
-		return (MS_EOF);
 	// ms_process(ms);
 	return (MS_OK);
 }
@@ -55,11 +64,10 @@ int	main(int argc, char **argv, char **envp)
 	ms_init(&ms, envp);
 	while (1)
 	{
-		if (ms_iter(&ms) == MS_SIGQUIT)
+		if (ms_iter(&ms) == MS_EOF)
 			break ;
 		ms_clear_cycle(&ms);
 	}
-	printf("Status: %d\n", ms.status);
 	ms_cleanup_all(&ms);
 	return (ms.status);
 }

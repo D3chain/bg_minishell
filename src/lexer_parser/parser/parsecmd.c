@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:10:40 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 21:03:02 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 11:29:54 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,16 @@ static int	is_quote_in_str(char *s)
 	return (0);
 }
 
-static void	str_no_quotes(char *s, int in_sq, int in_dq, int *qd)
-{
-	int	i;
-	int	j;
-
-	*qd = 1;
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (s[i] == '\'' && !in_dq)
-		{
-			in_sq = !in_sq;
-			i++;
-		}
-		else if (s[i] == '\"' && !in_sq)
-		{
-			in_dq = !in_dq;
-			i++;
-		}
-		else
-			s[j++] = s[i++];
-	}
-}
-
 static void	init_parsecmd(t_ms *ms, t_ast **node)
 {
 	*node = malloc(sizeof(t_ast));
 	if (!*node)
 		ms_fatal(ms, "parsecmd");
 	ft_bzero(*node, sizeof(t_ast));
+	(*node)->u_pao.cmd.hd_fd[0] = -1;	
+	(*node)->u_pao.cmd.hd_fd[1] = -1;
+	(*node)->u_pao.cmd.fd[0] = -1;
+	(*node)->u_pao.cmd.fd[1] = -1;
 	(*node)->kind = AST_CMD;	
 	argvec_init(&(*node)->u_pao.cmd.argv);
 	redirvec_init(&(*node)->u_pao.cmd.redv);
@@ -77,7 +56,7 @@ static void	parseredir(t_ms *ms, int *i, t_redirvec *redv)
 	red.quoted_delim = 0;
 	*i += 1;
 	if (red.kind == AST_H_DOC && is_quote_in_str(red.word))
-		str_no_quotes(red.word, 0, 0, &red.quoted_delim);
+		expand_one(ms, &red.word, 1);
 	if (red.kind == AST_H_DOC)
 		ms->cyc.ret = AST_H_DOC;
 	if (redirvec_push_redir(redv, &red) != MS_OK)

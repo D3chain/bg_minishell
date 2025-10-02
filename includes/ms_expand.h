@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:07:04 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 16:32:33 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 08:03:14 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_sb
 }	t_sb;
 
 void	expand(t_ms *ms, t_cmd *cmd);
+void	expand_one(t_ms *ms, char **out, int is_hd);
 void	init_sb(t_sb *sb);
 void	sb_putc(t_ms *ms, t_sb *sb, char c);
 void	sb_puts(t_ms *ms, t_sb *sb, const char *s);

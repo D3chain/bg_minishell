@@ -1,6 +1,10 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"ms_signal.h": "c"
+		"ms_signal.h": "c",
+		"ms_types.h": "c",
+		"libft.h": "c",
+		"unistd.h": "c",
+		"readline.h": "c"
 	}
 }

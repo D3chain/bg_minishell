@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 11:17:45 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/01 21:21:01 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 11:36:03 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,21 @@ void	set_h_doc_h_red(t_ms *ms, t_redir *h_red, int *hd_fd)
 {
 	char	*line;
 
-	if (hd_fd)
+	ms->cyc.ret = MS_OK;
+	if (hd_fd[0] != -1)
 	{
 		close(hd_fd[0]);
 		close(hd_fd[1]);
 	}
 	if (pipe(hd_fd) != 0)
 		return (ms_fatal(ms, "pipe"));
+	init_signals();
 	while (1)
 	{
-		init_signals();
 		g_sigstate = 0;
 		line = readline("> ");
-		printf("line: %s\n", line);
-		if (!line || ft_strcmp(line, h_red->word))
+		if (!line || ft_strcmp(line, h_red->word) == 0)
 		{
-			printf("in out");
-			write(hd_fd[1], "\0", 1);
 			if (!line)
 				ms_err(2, "warning", "here-document delimited by end-of-file");
 			return ;

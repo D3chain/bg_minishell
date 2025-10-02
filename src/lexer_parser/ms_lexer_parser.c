@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 10:11:31 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 16:21:31 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 10:54:49 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,10 @@ void ast_print(t_ms *ms, t_ast *node, int depth)
 
 t_ret	ms_lexer_parser(t_ms *ms)
 {
-	t_ret	r;
-
-	r = ms_lexer(ms);
-	if (r != MS_OK)
-		return (r);
-	r = ms_parser(ms);
-	if (r != MS_OK)
-		return (r);
+	if (ms_lexer(ms) == MS_MISUSE)
+		return (MS_MISUSE);
+	if (ms_parser(ms) == MS_MISUSE)
+		return (MS_MISUSE);
 	ast_print(ms, ms->cyc.ast, 0);
-	return (r);
+	return (MS_OK);
 }

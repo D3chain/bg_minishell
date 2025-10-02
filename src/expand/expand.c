@@ -6,14 +6,14 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:25:19 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/30 17:44:09 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 11:23:46 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "ms_expand.h"
 
-static void	not_dolar(t_ms *ms, t_sb *sb, char c, int *i)
+static void	not_dollar(t_ms *ms, t_sb *sb, char c, int *i)
 {
 	if (c == '\'' && !sb->in_dq)
 		sb->in_sq = !sb->in_sq;
@@ -24,7 +24,7 @@ static void	not_dolar(t_ms *ms, t_sb *sb, char c, int *i)
 	*i += 1;
 }
 
-static void	dolar(t_ms *ms, t_sb *sb, const char *arg, int *i)
+static void	dollar(t_ms *ms, t_sb *sb, const char *arg, int *i)
 {
 	int		n;
 	t_env	*cur;
@@ -47,7 +47,7 @@ static void	dolar(t_ms *ms, t_sb *sb, const char *arg, int *i)
 	*i += n;
 }
 
-static void	expand_one(t_ms *ms, char **out, int is_hd)
+void	expand_one(t_ms *ms, char **out, int is_hd)
 {
 	t_sb		sb;
 	const char	*arg;
@@ -59,11 +59,10 @@ static void	expand_one(t_ms *ms, char **out, int is_hd)
 	while (arg[i])
 	{
 		if (arg[i] != '$' || is_hd || sb.in_sq)
-			not_dolar(ms, &sb, arg[i], &i);
+			not_dollar(ms, &sb, arg[i], &i);
 		else
-			dolar(ms, &sb, arg, &i);
+			dollar(ms, &sb, arg, &i);
 	}
-	printf("%s\n", sb.buf);
 	sb_add_reset_buf(ms, &sb);
 	free(*out);
 	*out = sb.out;

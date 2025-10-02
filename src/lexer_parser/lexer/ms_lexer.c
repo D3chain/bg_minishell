@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:03:03 by echatela          #+#    #+#             */
-/*   Updated: 2025/09/22 12:53:02 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 10:51:47 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_ret	ms_lex_tokenize(t_ms *ms)
 		{
 			tok = ms_lex_read_get_tok(ms, &i);
 			if (tokv_push_tok(&vec, &tok) != MS_OK)
-				return (tokv_free(&vec), ms_cleanup_all(ms), MS_ERR);
+				return (tokv_free(&vec), ms_fatal(ms, "tokvec"), MS_ERR);
 			free(tok.lex);
 		}
 	}
@@ -55,11 +55,9 @@ static t_ret	ms_lex_tokenize(t_ms *ms)
 
 t_ret	ms_lexer(t_ms *ms)
 {
-	t_ret	r;
-
-	r = ms_lex_tokenize(ms);
+	ms_lex_tokenize(ms);
 	if (ms->cyc.in_sq || ms->cyc.in_dq)
 		return (ms_quote_err(ms), MS_MISUSE);
-	return (r);
+	return (MS_OK);
 }
 
