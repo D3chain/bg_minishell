@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:25:19 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 11:23:46 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/02 17:59:40 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,25 +72,19 @@ void	expand(t_ms *ms, t_cmd *cmd)
 {
 	int	i;
 
-	if (cmd->argv.data)
+	i = 0;
+	while (i < cmd->argv.len)
 	{
-		i = 0;
-		while (i < cmd->argv.len)
-		{
-			expand_one(ms, &cmd->argv.data[i], 0);
-			i++;
-		}
+		expand_one(ms, &cmd->argv.data[i], 0);
+		i++;
 	}
-	if (cmd->redv.data)
+	i = 0;
+	while (i < cmd->redv.len)
 	{
-		i = 0;
-		while (i < cmd->redv.len)
-		{
-			if (cmd->redv.data[i].kind == AST_H_DOC)
-				expand_one(ms, &cmd->redv.data[i].word, 1);
-			else
-				expand_one(ms, &cmd->redv.data[i].word, 0);
-			i++;
-		}
+		if (cmd->redv.data[i].kind == AST_H_DOC)
+			expand_one(ms, &cmd->redv.data[i].word, 1);
+		else
+			expand_one(ms, &cmd->redv.data[i].word, 0);
+		i++;
 	}
 }
