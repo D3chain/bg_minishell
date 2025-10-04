@@ -1,4 +1,6 @@
 
+#include "minishell.h"
+
 typedef enum e_q
 {
 	Q_NONE,
@@ -12,6 +14,17 @@ typedef enum e_s
 	UC_QUOTE,
 	UC_PIPE
 }	t_s;
+
+int	is_quote_in_str(char *s)
+{
+	while (*s)
+	{
+		if (*s == '\"' || *s == '\'')
+			return (1);
+		s++;
+	}
+	return (0);
+}
 
 static int	is_quote_closed(const char *s, t_q q, int *st)
 {

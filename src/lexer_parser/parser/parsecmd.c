@@ -6,22 +6,11 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:10:40 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 14:34:04 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/04 13:08:09 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_quote_in_str(char *s)
-{
-	while (*s)
-	{
-		if (*s == '\"' || *s == '\'')
-			return (1);
-		s++;
-	}
-	return (0);
-}
 
 static void	init_parsecmd(t_ms *ms, t_ast **node)
 {

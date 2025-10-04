@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 13:30:15 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/02 14:59:58 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/04 13:10:17 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ void	ms_cleanup_all(t_ms *ms);
 
 
 void	close_pair(int *fd);
+
+int	is_quote_in_str(char *s);
 
 #endif

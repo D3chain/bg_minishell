@@ -6,13 +6,13 @@
 #    By: echatela <echatela@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/05 12:02:13 by echatela          #+#    #+#              #
-#    Updated: 2025/10/02 15:09:01 by echatela         ###   ########.fr        #
+#    Updated: 2025/10/04 13:54:02 by echatela         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	minishell
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -g3
+# CFLAGS		=	-Wall -Wextra -Werror -g3
 RLFLAGS     =	-lreadline -lncurses
 
 SRCS		=	src/main.c \
