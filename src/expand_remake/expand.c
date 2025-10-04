@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 18:12:46 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/04 13:30:36 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:30:23 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,12 @@ static void	expand_unquote(t_ms *ms, t_cmd *cmd)
 {
 	int	i;
 
-	i = 0;
-	while (i < cmd->argv.len)
-	{
+	i = -1;
+	while (++i < cmd->argv.len)
 		unquote_str(ms, &cmd->argv.data[i], 0, 0);
-		i++;
-	}
-	i = 0;
-	while (i < cmd->redv.len)
-	{
+	i = -1;
+	while (++i < cmd->redv.len)
 		unquote_str(ms, &cmd->redv.data[i].word, 0, 0);
-		i++;
-	}
-}
-
-void	expand_wc(t_ms *ms, t_cmd *cmd)
-{
-	t_argvec	exp_argv;
-	t_redirvec	exp_redv;
-
-	argvec_init(&exp_argv);
-	redirvec_init(&exp_redv);
 }
 
 void	expand(t_ms *ms, t_cmd *cmd)

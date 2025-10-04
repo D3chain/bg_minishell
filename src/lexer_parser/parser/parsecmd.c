@@ -6,7 +6,7 @@
 /*   By: echatela <echatela@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 21:10:40 by echatela          #+#    #+#             */
-/*   Updated: 2025/10/04 13:08:09 by echatela         ###   ########.fr       */
+/*   Updated: 2025/10/04 17:39:52 by echatela         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ static void	parseredir(t_ms *ms, int *i, t_redirvec *redv)
 	red.word = ms->cyc.vec[*i].lex;
 	red.quoted_delim = 0;
 	*i += 1;
-	if (red.kind == AST_H_DOC && is_quote_in_str(red.word))
-		expand_one(ms, &red.word, 1);
+	if (red.kind == AST_H_DOC && (ft_strchr(red.word, '\'')
+		|| ft_strchr(red.word, '\"')))
+		unquote_str(ms, &red.word, 0, 0);
 	if (red.kind == AST_H_DOC)
 		ms->cyc.ret = AST_H_DOC;
 	if (redirvec_push_redir(redv, &red) != MS_OK)
