@@ -81,13 +81,13 @@ int	redirvec_push_redir(t_redirvec *v, const t_redir *t)
 	t_redir	tmp;
 
 	if (!redirvec_reserve(v, v->len + 1))
-		return (MS_ERR);
+		return (redirvec_free(v), MS_ERR);
 	tmp = *t;
 	if (t->word)
 	{
 		tmp.word = ft_strdup(t->word);
 		if (!tmp.word)
-			return (MS_ERR);
+			return (redirvec_free(v), MS_ERR);
 	}
 	else
 		tmp.word = NULL;
